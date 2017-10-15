@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.when;
 import util.Constants;
+import util.RandomGenerator;
 import world.Point;
 import world.World;
 
@@ -17,7 +18,7 @@ public class WorldTest {
     private static World world;
 
     @Mock
-    private Event mockedEvent = Mockito.mock(Event.class);
+    private Event mockedEvent= Mockito.mock(Event.class);
 
     @Mock
     private Ticket mockedTicket = Mockito.mock(Ticket.class);
@@ -35,7 +36,7 @@ public class WorldTest {
     @Test
     public void doesAddEventsToPoints() {
         int prevNumOfEvents = world.numberOfEvents();
-        world.addEvent(mockedEvent);
+        world.addEventToMap(mockedEvent, mockedPoint);
         Assert.assertTrue(world.numberOfEvents() > prevNumOfEvents);
     }
 
@@ -43,15 +44,15 @@ public class WorldTest {
     public void doesFindNearestNumberOfEventsWhenMoreThanNEvents() {
         world.eventsMap().clear();
 
-        world.addEvent(mockedEvent);
-        world.addEvent(mockedEvent);
-        world.addEvent(mockedEvent);
-        world.addEvent(mockedEvent);
-        world.addEvent(mockedEvent);
-        world.addEvent(mockedEvent);
-        world.addEvent(mockedEvent);
-        world.addEvent(mockedEvent);
-        world.addEvent(mockedEvent);
+        world.addEventToMap(mockedEvent, RandomGenerator.generatePoint());
+        world.addEventToMap(mockedEvent, RandomGenerator.generatePoint());
+        world.addEventToMap(mockedEvent, RandomGenerator.generatePoint());
+        world.addEventToMap(mockedEvent, RandomGenerator.generatePoint());
+        world.addEventToMap(mockedEvent, RandomGenerator.generatePoint());
+        world.addEventToMap(mockedEvent, RandomGenerator.generatePoint());
+        world.addEventToMap(mockedEvent, RandomGenerator.generatePoint());
+        world.addEventToMap(mockedEvent, RandomGenerator.generatePoint());
+        world.addEventToMap(mockedEvent, RandomGenerator.generatePoint());
 
         Assert.assertEquals(world.getNearestNumberEvents(mockedPoint).length, Constants.NUMBER_OF_NEAREST_EVENTS);
     }
@@ -60,8 +61,8 @@ public class WorldTest {
     public void doesFindNearestNumberOfEventsWhenLessThanNEvents() {
         world.eventsMap().clear();
 
-        world.addEvent(mockedEvent);
-        world.addEvent(mockedEvent);
+        world.addEventToMap(mockedEvent, RandomGenerator.generatePoint());
+        world.addEventToMap(mockedEvent, RandomGenerator.generatePoint());
 
         Assert.assertEquals(world.getNearestNumberEvents(mockedPoint).length, Constants.NUMBER_OF_NEAREST_EVENTS);
         Assert.assertNotNull(world.getNearestNumberEvents(mockedPoint)[0]);

@@ -27,14 +27,12 @@ public class World {
         return eventsMap;
     }
 
-    public void addEvent(Event e) {
-        Point point = RandomGenerator.generatePoint();
+    public void addEventToMap(Event e, Point p) {
+        while (eventsMap.containsKey(p.hashCode()))
+            p= RandomGenerator.generatePoint();
 
-        while (eventsMap.containsKey(point.hashCode()))
-            point = RandomGenerator.generatePoint();
-
-        point.setEvent(e);
-        eventsMap.put(point.hashCode(), point);
+        p.setEvent(e);
+        eventsMap.put(p.hashCode(), p);
     }
 
     public void printNearestNumberEvents(int x, int y) {
@@ -78,7 +76,7 @@ public class World {
 
     private void assignRandomEventsToRandomPoints() {
         for (Event e : RandomGenerator.generateEventList())
-            addEvent(e);
+            addEventToMap(e, RandomGenerator.generatePoint());
     }
 }
 

@@ -46,19 +46,6 @@ public class Point {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null)
-            return false;
-
-        if (!Point.class.isAssignableFrom(obj.getClass()))
-            return false;
-
-        final Point other = (Point) obj;
-
-        return this.coordinates == other.coordinates;
-    }
-
-    @Override
     public int hashCode() {
         int result = x();
         result = 31 * result + y();

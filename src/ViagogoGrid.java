@@ -24,6 +24,9 @@ public class ViagogoGrid {
             try {
                 String[] coordinates = response.split(",");
 
+                if (coordinates.length != 2)
+                    throw new IllegalArgumentException();
+
                 print("\nClosest events to (" + coordinates[0] + "," + coordinates[1] + ")\n");
 
                 world.printNearestNumberEvents(Integer.parseInt(coordinates[0]),
