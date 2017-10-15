@@ -36,6 +36,7 @@ java ViagogoGrid
     - More generally, it ranges anywhere from [0, (LENGTH*2 + 1)^2]
 - Number of tickets in each event range from [0, 100]
     - The price of each ticket ranges from [$0.01, $5000.00]
+- Events with no tickets will display price() as "No Tickets Available"
 - Each location can only have one event.
 - Each event may have zero or more tickets.
 - Valid input constitutes two integer values separated by a single comma
