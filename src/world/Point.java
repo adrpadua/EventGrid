@@ -1,9 +1,6 @@
 package world;
 
 import model.Event;
-import model.Ticket;
-
-import java.util.Arrays;
 import java.util.Collections;
 
 public class Point {
@@ -19,21 +16,33 @@ public class Point {
         event = new Event(Integer.MAX_VALUE, Collections.emptyList());
     }
 
+    public Event event() {
+        return event;
+    }
+
+    public int x() {
+        return coordinates[0];
+    }
+
+    public int y() {
+        return coordinates[1];
+    }
+
     public int distanceTo(Point p) {
         return Math.abs(x() - p.x()) + Math.abs(y() - p.y());
     }
 
-    void setEvent(Event e) {
+    public void setEvent(Event e) {
         this.event = e;
     }
 
-    void setDistance(int d) {
+    public void setDistance(int d) {
         this.distanceFromStart = d;
     }
 
     @Override
     public String toString() {
-        return "Event " + event.id() + " - " + event.cheapestTicket() + ", Distance " + distanceFromStart;
+        return "Event " + event + " - " + event.cheapestTicket() + ", Distance " + distanceFromStart;
     }
 
     @Override
@@ -56,10 +65,4 @@ public class Point {
         return result;
     }
 
-    private int x() {
-        return coordinates[0];
-    }
-    private int y() {
-        return coordinates[1];
-    }
 }
