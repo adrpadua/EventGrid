@@ -79,4 +79,3 @@ public class World {
             addEventToMap(e, RandomGenerator.generatePoint());
     }
 }
-

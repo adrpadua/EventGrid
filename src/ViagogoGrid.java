@@ -30,7 +30,7 @@ public class ViagogoGrid {
                 print("\nClosest events to (" + coordinates[0] + "," + coordinates[1] + ")\n");
 
                 world.printNearestNumberEvents(Integer.parseInt(coordinates[0]),
-                                             Integer.parseInt(coordinates[1]));
+                        Integer.parseInt(coordinates[1]));
 
             } catch (IllegalArgumentException e) {
                 print("Error: " + e.toString());
@@ -47,5 +47,3 @@ public class ViagogoGrid {
         return s.replaceAll("\\s+","");
     }
 }
-
-

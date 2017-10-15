@@ -19,11 +19,6 @@ same location?
 - How would you change your program if you were working with a much larger world
 size?
 
-## Language
-- Java 1.7
-- Used JUnit and Mockito for testing
-- ViagogoGrid.java is the entry point
-
 ## How To Run
 From the project root directory:
 ```
