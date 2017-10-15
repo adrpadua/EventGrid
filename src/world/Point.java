@@ -42,7 +42,7 @@ public class Point {
 
     @Override
     public String toString() {
-        return "Event " + event + " - " + event.cheapestTicket() + ", Distance " + distanceFromStart;
+        return event + ", Distance " + distanceFromStart;
     }
 
     @Override

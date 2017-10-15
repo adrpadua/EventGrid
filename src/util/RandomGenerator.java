@@ -53,7 +53,7 @@ public final class RandomGenerator {
 
     private static double generateTicketPrice() {
         double dollarVal = rand.nextInt(Constants.MAX_TICKET_PRICE);
-        double centsVal = rand.nextInt(Constants.CENTS_PER_DOLLAR) / 100.0;
+        double centsVal = rand.nextInt(Constants.CENTS_PER_DOLLAR+1) / 100.0;
 
         double price = dollarVal + centsVal;
 

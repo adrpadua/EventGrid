@@ -32,8 +32,14 @@ public class Event {
         return ticketsList.peek();
     }
 
+    public boolean hasTickets() {
+        return numTickets != 0;
+    }
+
     @Override
     public String toString() {
-        return String.format("%03d", id);
+        String cheapestTicketStr = (ticketsList.isEmpty()) ? "No Tickets Available" : cheapestTicket().toString();
+
+        return "Event " + String.format("%03d", id) + " - " + cheapestTicketStr;
     }
 }
