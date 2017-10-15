@@ -1,7 +1,6 @@
 package model;
 
 import java.text.NumberFormat;
-import java.util.Comparator;
 import java.util.Locale;
 
 public class Ticket implements Comparable<Ticket> {
@@ -10,6 +9,10 @@ public class Ticket implements Comparable<Ticket> {
 
     public Ticket(double price) {
         this.price = price;
+    }
+
+    public double price() {
+        return price;
     }
 
     @Override

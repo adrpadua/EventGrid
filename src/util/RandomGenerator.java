@@ -18,10 +18,6 @@ public final class RandomGenerator {
         return new Point(randX, randY);
     }
 
-    private static int generateOrdinate() {
-        return rand.nextInt(Constants.ROW_COL_LENGTH) - Constants.GRID_SIZE;
-    }
-
     public static List<Event> generateEventList() {
         int numEvents = generateNumberOfEvents();
         List<Event> eventList = new ArrayList<>();
@@ -30,6 +26,10 @@ public final class RandomGenerator {
             eventList.add(new Event(i, generateTicketList()));
 
         return eventList;
+    }
+
+    private static int generateOrdinate() {
+        return rand.nextInt(Constants.ROW_COL_LENGTH) - Constants.GRID_SIZE;
     }
 
     private static int generateNumberOfEvents() {
@@ -54,6 +54,11 @@ public final class RandomGenerator {
     private static double generateTicketPrice() {
         double dollarVal = rand.nextInt(Constants.MAX_TICKET_PRICE);
         double centsVal = rand.nextInt(Constants.CENTS_PER_DOLLAR) / 100.0;
+
+        double price = dollarVal + centsVal;
+
+        if (price == 0.0)
+            return generateTicketPrice();
 
         return dollarVal + centsVal;
     }

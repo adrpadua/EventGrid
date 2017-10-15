@@ -2,82 +2,83 @@ package world;
 
 import model.Event;
 import util.Constants;
+import util.DistanceComparator;
 import util.RandomGenerator;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
 public class World {
 
-    private Map<Integer, Point> map;
+    private Map<Integer, Point> eventsMap;
 
     public World() {
-        map = new HashMap<Integer, Point>();
-        List<Event> eventList = RandomGenerator.generateEventList();
+        eventsMap = new HashMap<>();
 
-        for (Event e : eventList)
-            addEvent(e);
+        assignRandomEventsToRandomPoints();
     }
 
-    private void addEvent(Event e) {
+    public int numberOfEvents() {
+        return eventsMap.size();
+    }
+
+    public Map<Integer,Point> eventsMap() {
+        return eventsMap;
+    }
+
+    public void addEvent(Event e) {
         Point point = RandomGenerator.generatePoint();
 
-        while (map.containsKey(point.hashCode()))
+        while (eventsMap.containsKey(point.hashCode()))
             point = RandomGenerator.generatePoint();
 
         point.setEvent(e);
-        map.put(point.hashCode(), point);
+        eventsMap.put(point.hashCode(), point);
     }
 
-    public void getNearestN(int x, int y) {
-
-        if (Math.abs(x) > Constants.GRID_SIZE ||
-            Math.abs(y) > Constants.GRID_SIZE)
+    public void printNearestNumberEvents(int x, int y) {
+        if (isOutsideGridBoundaries(x, y))
             throw new IllegalArgumentException("Out of grid boundaries.");
 
-        List<Point> nearestPoints = nearestNHelper(new Point(x, y));
+        Point[] nearestNumberPoints = getNearestNumberEvents(new Point(x, y));
 
-        for (Point p : nearestPoints)
-            System.out.println(p);
+        if (nearestNumberPoints[0] == null)
+            System.out.println("No events nearby!\n");
+        else
+            for (Point p : nearestNumberPoints)
+                if (p != null)
+                    System.out.println(p + "\n");
     }
 
-    private List<Point> nearestNHelper(Point start) {
-        Comparator<Point> distanceComparator = new DistanceComparator(start);
-        PriorityQueue<Point> pq = new PriorityQueue<>(Constants.NUMBER_OF_NEAREST_EVENTS, distanceComparator);
+    public Point[] getNearestNumberEvents(Point start) {
+        Point[] pointArr = new Point[Constants.NUMBER_OF_NEAREST_EVENTS];
+        PriorityQueue<Point> pq = getNearestEvents(start);
 
-        for (int key : map.keySet())
+        for (int i=0; i<pointArr.length; i++)
+            pointArr[i] = pq.poll();
+
+        return pointArr;
+    }
+
+    private PriorityQueue<Point> getNearestEvents(Point start) {
+        PriorityQueue<Point> pq = new PriorityQueue<>(Constants.NUMBER_OF_NEAREST_EVENTS, new DistanceComparator(start));
+
+        for (int key : eventsMap.keySet())
             if (key != start.hashCode())
-                pq.add(map.get(key));
+                pq.add(eventsMap.get(key));
 
-        List<Point> list = new ArrayList<>();
+        return pq;
+    }
 
-        while (list.size() < Constants.NUMBER_OF_NEAREST_EVENTS)
-            list.add(pq.poll());
+    private boolean isOutsideGridBoundaries(int x, int y) {
+        return Math.abs(x) > Constants.GRID_SIZE ||
+               Math.abs(y) > Constants.GRID_SIZE;
+    }
 
-        return list;
+    private void assignRandomEventsToRandomPoints() {
+        for (Event e : RandomGenerator.generateEventList())
+            addEvent(e);
     }
 }
 
-class DistanceComparator implements Comparator<Point>{
-
-    private Point start;
-
-    DistanceComparator(Point start) {
-        this.start = start;
-    }
-
-    @Override
-    public int compare(Point a, Point b) {
-        int aDist = start.distanceTo(a);
-        int bDist = start.distanceTo(b);
-
-        a.setDistance(aDist);
-        b.setDistance(bDist);
-
-        return Integer.compare(aDist, bDist);
-    }
-}
