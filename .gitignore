@@ -1,1 +1,3 @@
 ViagogoGrid.iml
+./src/*.class
+./src/*/*.class
