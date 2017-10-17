@@ -40,6 +40,8 @@ java ViagogoGrid
 ## Design
 #### Model
 - Classes for Events and Tickets made to resemble real-world properties like event location, available tickets, and ticket pricing.
+- __Event__ is initialized with a list of tickets and an ID. The __toString()__ method is overwritten to match the format of the desired output from the question prompt.
+- __Ticket__ is just a class to represent tickets on sale. Each ticket has a price and is held by __Events__ in a __List__.
 
 #### World
 - The generation of the map and the 2D coordinate point representation is held in the world package. I thought this should be abstracted away from the __Event__ and __Ticket__ models because maybe we would want to change the representation of the __World__ map in the future.
