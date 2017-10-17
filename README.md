@@ -37,6 +37,21 @@ java ViagogoGrid
 - Valid input constitutes two integer values separated by a single comma
 - User will want to loop input and search the 5 nearest through the same seed data using different start points
 
+## Design
+#### Model
+- Classes for Events and Tickets made to resemble real-world properties like event location, available tickets, and ticket pricing.
+
+#### World
+- The generation of the map and the 2D coordinate point representation is held in the world package. I thought this should be abstracted away from the __Event__ and __Ticket__ models because maybe we would want to change the representation of the __World__ map in the future.
+- __Points__ are used to hold location data for a(n) event(s). The class holds coordinates and a single __Event__ (which could be changed to a __Collection__ if needed).
+- To abstract the logic even more, __Point__ could alternatively implement an __EventLocation__ interface, so other implementations could be made to hold __Events__.
+
+#### Util
+- This package contains helpers that are not part of the models or world.
+- __Constants__ is a file that holds the important values for seeding the world. This data includes the constant for the world size, max # of events, max price of tickets, and the number _N_, where _N_ is the number of nearest events to find.
+- __DistanceComparator__ is a custom Comparator for the __Point__ class. This helps the __PriorityQueue__ sort the points by distance from the start location.
+- __RandomGenerator__ handles all the seeding for the data. While the world size and _N_ events are fixed, things like # of events, location of events, # tickets, and ticket price are generated with the methods in this class.
+
 ## Questions
 #### How might you change your program if you needed to support multiple events at the same location?
 The __Point__ class currently has a data member called __event__, which is basically a single __Event__ that has its own list of tickets and such. In addition it also holds a __distanceFromStart__ member for purposes of handling the query. A possible change would be to turn the __Event event;__ data into a __Collection__ of __Events__.
